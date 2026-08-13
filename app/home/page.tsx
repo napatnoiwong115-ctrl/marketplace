@@ -1,4 +1,6 @@
+'use client';
 import Link from 'next/link';
+import { useTheme } from '../context/ThemeContext';
 
 interface Product {
   id: number;
@@ -9,37 +11,55 @@ interface Product {
 
 const mockProducts: Product[] = [
   { id: 1, name: 'หนังสือเรียน Programming 101', price: 150, image: '📚' },
-  { id: 2, name: 'เสื้อช็อปไซส์ L มือสอง', price: 250, image: '👕' },
+  { id: 2, name: 'เสื้อช็อป ไซส์ L มือสอง', price: 250, image: '👕' },
   { id: 3, name: 'หูฟัง Bluetooth เสียงดี', price: 390, image: '🎧' },
-  { id: 4, name: 'กระเป๋าเป้นักศึกษา', price: 200, image: '🎒' },
-  { id: 5, name: 'เครื่องคิดเลขวิทยาศาสตร์', price: 450, image: '🔢' },
+  { id: 4, name: 'กระเป๋าเป้ นักศึกษา', price: 200, image: '🎒' },
+  { id: 5, name: 'เครื่องคิดเลข วิทยาศาสตร์', price: 450, image: '🔢' },
 ];
 
 export default function HomePage() {
+  const { theme, toggleTheme } = useTheme();
+
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-xl font-bold">สินค้าในวิทยาลัย</h1>
+    <div className="space-y-6">
+      {/* Header พร้อมปุ่มสลับ Dark/Light Mode */}
+      <div className="flex justify-between items-center pb-2 border-b border-gray-200 dark:border-slate-800">
+        <div className="flex items-center gap-3">
+          <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+            สินค้าในวิทยาลัย
+          </h1>
+          <button
+            onClick={toggleTheme}
+            className="p-1.5 rounded-lg bg-gray-200 dark:bg-slate-800 text-gray-800 dark:text-yellow-400 hover:opacity-80 transition cursor-pointer"
+            title="สลับโหมด มืด/สว่าง"
+          >
+            {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
+          </button>
+        </div>
+
         <Link
           href="/product"
-          className="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg text-sm font-medium transition"
+          className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 py-2 rounded-xl transition"
         >
           + เพิ่มสินค้า
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {/* Product Grid */}
+      <div className="grid grid-cols-2 gap-3">
         {mockProducts.map((item) => (
           <div
             key={item.id}
-            className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 flex items-center space-x-4"
+            className="bg-gray-50 dark:bg-slate-800/80 border border-gray-200 dark:border-slate-700/60 rounded-2xl p-3 flex flex-col justify-between shadow-sm"
           >
-            <div className="text-4xl bg-white dark:bg-gray-700 p-3 rounded-lg shadow-sm">
+            <div className="w-full aspect-square bg-gray-200 dark:bg-slate-700/50 rounded-xl flex items-center justify-center text-3xl mb-3">
               {item.image}
             </div>
             <div>
-              <h2 className="font-semibold text-base">{item.name}</h2>
-              <p className="text-indigo-600 dark:text-indigo-400 font-bold mt-1">
+              <h2 className="text-sm font-medium text-gray-800 dark:text-slate-200 line-clamp-2 leading-tight mb-2">
+                {item.name}
+              </h2>
+              <p className="text-indigo-600 dark:text-indigo-400 font-bold text-base">
                 ฿{item.price}
               </p>
             </div>
