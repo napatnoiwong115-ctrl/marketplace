@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { ThemeProvider } from './context/ThemeContext';
 
 export const metadata: Metadata = {
   title: 'Campus Marketplace',
-  description: 'เว็บบอร์ดซื้อขายสินค้าในวิทยาลัย',
+  description: 'ตลาดสินค้าในวิทยาลัย',
 };
 
 export default function RootLayout({
@@ -13,10 +14,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="th" className="dark">
-      <body className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
-        <main className="max-w-md mx-auto min-h-screen shadow-lg border-x border-gray-200 dark:border-gray-800 p-4">
-          {children}
-        </main>
+      {/* แก้ตรงนี้: กำหนด bg-white สำหรับ Light Mode และ dark:bg-slate-950 สำหรับ Dark Mode */}
+      <body className="bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-300">
+        <ThemeProvider>
+          <main className="max-w-md mx-auto min-h-screen bg-white dark:bg-slate-900 border-x border-slate-200 dark:border-slate-800 p-4 shadow-xl transition-colors duration-300">
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );
