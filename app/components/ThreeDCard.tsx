@@ -4,42 +4,59 @@ interface Product {
   id: number;
   name: string;
   price: number;
+  originalPrice: number;
+  discount: string;
+  rating: number;
+  reviews: number;
   image: string;
-  category: string;
 }
 
 export default function ThreeDCard({ item }: { item: Product }) {
   return (
-    <div className="group [perspective:1000px]">
-      <div className="relative bg-white/90 dark:bg-[#151C2C]/90 backdrop-blur-md border border-amber-200/60 dark:border-purple-500/30 rounded-3xl p-4 shadow-xl transition-all duration-500 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateX(10deg)_rotateY(-10deg)] hover:border-amber-400 dark:hover:border-pink-500 hover:shadow-2xl hover:shadow-purple-500/20">
-        
-        {/* รูปภาพสินค้า คมชัด มีออร่าสีสัน */}
-        <div className="relative w-full aspect-square rounded-2xl overflow-hidden mb-3.5 border border-slate-100 dark:border-purple-500/20 shadow-inner [transform:translateZ(25px)] transition-all duration-500 group-hover:[transform:translateZ(40px)]">
-          <img
-            src={item.image}
-            alt={item.name}
-            className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <span className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] font-bold text-amber-300 border border-amber-400/30">
-            {item.category}
-          </span>
+    <div className="bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-slate-200/80 dark:border-slate-700 flex flex-col justify-between">
+      
+      {/* รูปภาพสินค้า + ป้ายส่วนลด */}
+      <div className="relative w-full aspect-square bg-slate-50 dark:bg-slate-900 overflow-hidden">
+        <img
+          src={item.image}
+          alt={item.name}
+          className="w-full h-full object-cover"
+        />
+        {/* ป้าย % ส่วนลดมุมขวาบน */}
+        <div className="absolute top-0 right-0 bg-orange-500 text-white text-[11px] font-bold px-1.5 py-0.5 rounded-bl-md">
+          {item.discount}
         </div>
+      </div>
 
-        {/* รายละเอียดสินค้า */}
-        <div className="[transform:translateZ(15px)] space-y-1.5">
-          <h2 className="text-sm font-serif font-bold text-slate-800 dark:text-slate-100 line-clamp-1 group-hover:text-amber-600 dark:group-hover:text-pink-400 transition-colors">
-            {item.name}
-          </h2>
-          <div className="pt-2 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
-            <span className="text-[11px] text-slate-400 font-medium">Prix Officiel</span>
-            <p className="text-base font-serif font-extrabold text-amber-600 dark:text-amber-400 filter drop-shadow-sm">
+      {/* ข้อมูลสินค้า */}
+      <div className="p-2.5 flex flex-col justify-between flex-1">
+        <h2 className="text-xs text-slate-800 dark:text-slate-100 line-clamp-2 leading-snug mb-2 font-normal">
+          {item.name}
+        </h2>
+
+        <div>
+          {/* ราคาขาย + ราคาเต็ม */}
+          <div className="flex items-baseline gap-1.5 flex-wrap">
+            <span className="text-base font-bold text-orange-600 dark:text-orange-500">
               ฿{item.price.toLocaleString()}
-            </p>
+            </span>
+            <span className="text-[11px] text-slate-400 line-through">
+              ฿{item.originalPrice.toLocaleString()}
+            </span>
+          </div>
+
+          {/* ดาวรีวิว */}
+          <div className="flex items-center gap-1 mt-1">
+            <div className="flex text-amber-400 text-[10px]">
+              {'★'.repeat(Math.floor(item.rating))}
+            </div>
+            <span className="text-[10px] text-slate-400">
+              ({item.reviews})
+            </span>
           </div>
         </div>
-
       </div>
+
     </div>
   );
 }

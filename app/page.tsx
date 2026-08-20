@@ -5,56 +5,68 @@ interface Product {
   id: number;
   name: string;
   price: number;
+  originalPrice: number;
+  discount: string;
+  rating: number;
+  reviews: number;
   image: string;
-  category: string;
 }
 
 const mockProducts: Product[] = [
   { 
     id: 1, 
-    name: 'หนังสือเรียน Programming 101', 
-    price: 150, 
-    category: 'EDUCATION',
-    image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80' 
+    name: 'GUC กระเป๋าสะพายข้าง ทรงสวยจุของได้เยอะ หนังนุ่มน่ารัก', 
+    price: 49, 
+    originalPrice: 169, 
+    discount: '-71%', 
+    rating: 5, 
+    reviews: 3, 
+    image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&auto=format&fit=crop&q=80' 
   },
   { 
     id: 2, 
-    name: 'เสื้อช็อป ไซส์ L มือสอง', 
-    price: 250, 
-    category: 'FASHION',
+    name: 'เสื้อผ้าผู้หญิง เสื้อลูกไม้ แขนสั้น ลายสวยเข้ารูปใส่สบาย', 
+    price: 220, 
+    originalPrice: 330, 
+    discount: '-33%', 
+    rating: 5, 
+    reviews: 12, 
     image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80' 
   },
   { 
     id: 3, 
-    name: 'หูฟัง Bluetooth เสียงดี', 
-    price: 390, 
-    category: 'GADGETS',
-    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80' 
+    name: 'Eloop E14 ของแท้ 100% Power Bank แบตสำรองความจุสูง', 
+    price: 399, 
+    originalPrice: 1290, 
+    discount: '-69%', 
+    rating: 5, 
+    reviews: 12, 
+    image: 'https://images.unsplash.com/photo-1609592424109-dd9892f1b177?w=600&auto=format&fit=crop&q=80' 
   },
   { 
     id: 4, 
-    name: 'กระเป๋าเป้ นักศึกษา', 
-    price: 200, 
-    category: 'ACCESSORIES',
-    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80' 
+    name: 'LEDTV สมาร์ททีวี ขนาด 55 นิ้ว คมชัดระดับ 4K UHD', 
+    price: 9900, 
+    originalPrice: 15900, 
+    discount: '-37%', 
+    rating: 5, 
+    reviews: 14, 
+    image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=600&auto=format&fit=crop&q=80' 
   },
 ];
 
 export default function HomePage() {
   return (
-    <div className="space-y-6 py-4">
-      {/* Header สไตล์ยุโรป */}
-      <div className="text-center space-y-1 pb-4 border-b border-amber-500/20">
-        <span className="text-[11px] uppercase tracking-[0.3em] font-extrabold text-amber-600 dark:text-amber-400">
-          Campus Collection
-        </span>
-        <h1 className="text-2xl font-serif font-black text-slate-900 dark:text-white tracking-wide">
-          BOUTIQUE DE L'UNIVERSITÉ
+    <div className="space-y-3 pt-2">
+      {/* แถบหัวข้อ สินค้าแนะนำ */}
+      <div className="bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm border-l-4 border-orange-500 flex justify-between items-center">
+        <h1 className="text-sm font-bold text-orange-600 dark:text-orange-500 flex items-center gap-1.5">
+          <span>🔥</span> สินค้าเพื่อคุณโดยเฉพาะ
         </h1>
       </div>
 
-      {/* Grid การ์ดสินค้า */}
-      <div className="grid grid-cols-2 gap-4">
+      {/* Grid สินค้าแบบ 2 คอลัมน์แน่นๆ สไตล์แอปส้ม */}
+      <div className="grid grid-cols-2 gap-2">
         {mockProducts.map((item) => (
           <ThreeDCard key={item.id} item={item} />
         ))}
