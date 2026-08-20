@@ -10,27 +10,25 @@ interface Product {
 export default function ThreeDCard({ item }: { item: Product }) {
   return (
     <div className="group [perspective:1000px]">
-      <div className="relative bg-white/80 dark:bg-slate-900/90 backdrop-blur-md border border-purple-200 dark:border-purple-500/30 rounded-3xl p-4 shadow-xl transition-all duration-500 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateX(12deg)_rotateY(-12deg)_translateZ(15px)] hover:border-purple-500 hover:shadow-2xl hover:shadow-purple-500/30">
+      <div className="relative bg-white dark:bg-[#161B22] border border-[#E5E0D8] dark:border-[#30363D] rounded-2xl p-5 shadow-sm transition-all duration-500 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateX(6deg)_rotateY(-6deg)] hover:shadow-xl hover:border-[#D4AF37]">
         
-        {/* วงแหวนเวทมนตร์หลังรูปภาพ */}
-        <div className="relative w-full aspect-square bg-gradient-to-br from-purple-500/10 via-indigo-500/10 to-pink-500/10 dark:from-purple-900/40 dark:to-slate-800 rounded-2xl flex items-center justify-center text-4xl mb-3 border border-purple-300/30 dark:border-purple-500/20 shadow-inner [transform:translateZ(30px)] transition-all duration-500 group-hover:[transform:translateZ(45px)]">
-          <div className="absolute inset-0 rounded-2xl bg-purple-500/10 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <span className="relative z-10 filter drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]">
-            {item.image}
-          </span>
+        {/* กรอบแสดงรูปสินค้าทรงแกลเลอรี */}
+        <div className="w-full aspect-[4/3] bg-[#F7F5F0] dark:bg-[#21262D] rounded-xl flex items-center justify-center text-4xl mb-4 border border-[#EFECE6] dark:border-[#30363D] [transform:translateZ(20px)] transition-all duration-500 group-hover:[transform:translateZ(30px)]">
+          <span className="filter drop-shadow-md">{item.image}</span>
         </div>
 
-        {/* รายละเอียดไอเทม */}
-        <div className="[transform:translateZ(20px)]">
-          <h2 className="text-sm font-bold text-slate-800 dark:text-purple-100 mb-1 line-clamp-2 tracking-wide">
+        {/* รายละเอียดสินค้า สไตล์นิตยสารยุโรป */}
+        <div className="[transform:translateZ(15px)] space-y-2">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-[#8C7A5B] dark:text-[#D4AF37] font-semibold">
+            European Selection
+          </span>
+          <h2 className="text-sm font-serif font-medium text-[#1A1A1A] dark:text-[#F0F6FC] line-clamp-1 leading-snug">
             {item.name}
           </h2>
-          <div className="flex items-center justify-between mt-2">
-            <span className="text-xs px-2 py-0.5 rounded-full bg-purple-100 dark:bg-purple-950/80 text-purple-700 dark:text-purple-300 font-medium border border-purple-300/50 dark:border-purple-500/30">
-              💎 Rare Item
-            </span>
-            <p className="text-amber-600 dark:text-amber-400 font-extrabold text-base filter drop-shadow-[0_0_8px_rgba(251,191,36,0.3)]">
-              {item.price} Gold
+          <div className="pt-2 border-t border-[#F0ECE1] dark:border-[#30363D] flex items-center justify-between">
+            <span className="text-xs text-[#706E6B] dark:text-[#8B949E]">Official Price</span>
+            <p className="text-sm font-serif font-bold text-[#1A1A1A] dark:text-[#D4AF37]">
+              ฿{item.price.toLocaleString()}
             </p>
           </div>
         </div>
