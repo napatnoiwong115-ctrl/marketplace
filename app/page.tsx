@@ -1,14 +1,17 @@
 'use client';
+import { useState } from 'react';
+import Navbar from './components/Navbar';
+import LoginModal from './components/LoginModal';
 import ThreeDCard from './components/ThreeDCard';
 
 interface Product {
   id: number;
   name: string;
   price: number;
-  originalPrice: number;
-  discount: string;
-  rating: number;
-  reviews: number;
+  originalPrice?: number;
+  discount?: string;
+  rating?: number;
+  reviews?: number;
   image: string;
   badge?: string;
 }
@@ -60,48 +63,53 @@ const mockProducts: Product[] = [
 ];
 
 export default function HomePage() {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+
   return (
-    <div className="space-y-4 pt-1">
-      
-      {/* Header สไตล์แอปช้อปปิ้งชั้นนำ */}
-      <div className="sticky top-0 z-40 bg-slate-100/80 dark:bg-slate-950/80 backdrop-blur-md pt-2 pb-1">
-        <div className="flex items-center gap-2 bg-white dark:bg-slate-900 p-2.5 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
-          <span className="text-slate-400 text-sm">🔍</span>
-          <input 
-            type="text" 
-            placeholder="ค้นหาสินค้าในวิทยาลัย..." 
-            className="w-full bg-transparent text-xs outline-none text-slate-800 dark:text-slate-100 placeholder-slate-400"
-          />
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100">
+      {/* Navbar ด้านบน */}
+      <Navbar onOpenLogin={() => setIsLoginOpen(true)} />
+
+      {/* Main Content บนจอ PC */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        
+        {/* Banner โปรโมชันขนาดใหญ่สำหรับจอคอม */}
+        <div className="bg-gradient-to-r from-orange-500 via-amber-500 to-rose-500 rounded-3xl p-6 sm:p-10 text-white shadow-xl shadow-orange-500/15 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="space-y-2">
+            <span className="text-xs font-black uppercase tracking-widest bg-white/20 px-3 py-1 rounded-full">
+              CAMPUS BIG SALE
+            </span>
+            <h1 className="text-2xl sm:text-4xl font-black">ศูนย์รวมสินค้าและอุปกรณ์นักศึกษา</h1>
+            <p className="text-sm text-white/90">ซื้อ-ขาย ปลอดภัย ภายในรั้ววิทยาลัย</p>
+          </div>
+          <button 
+            type="button"
+            onClick={() => setIsLoginOpen(true)}
+            className="bg-white text-orange-600 hover:bg-slate-100 font-bold px-6 py-3 rounded-full shadow-lg transition cursor-pointer whitespace-nowrap"
+          >
+            เริ่มลงขายสินค้า
+          </button>
         </div>
-      </div>
 
-      {/* Banner โปรโมชัน */}
-      <div className="bg-gradient-to-r from-orange-500 via-amber-500 to-rose-500 p-4 rounded-2xl text-white shadow-lg shadow-orange-500/20">
-        <span className="text-[10px] font-extrabold uppercase tracking-widest bg-white/20 px-2 py-0.5 rounded-full">
-          CAMPUS DEAL
-        </span>
-        <h2 className="text-lg font-black mt-1">ตลาดนัดนักศึกษา ราคาพิเศษ!</h2>
-        <p className="text-xs text-white/90 mt-0.5">รวมสินค้ามือหนึ่ง มือสอง สภาพดี คุณภาพเกินราคา</p>
-      </div>
+        {/* แถบหัวข้อ สินค้าแนะนำ */}
+        <div className="flex justify-between items-center">
+          <h2 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+            <span className="w-2.5 h-5 bg-orange-500 rounded-full inline-block"></span>
+            สินค้าแนะนำสำหรับคุณ
+          </h2>
+        </div>
 
-      {/* แถบหัวข้อ สินค้าแนะนำ */}
-      <div className="flex justify-between items-center px-1">
-        <h3 className="text-sm font-extrabold text-slate-900 dark:text-white flex items-center gap-1.5">
-          <span className="w-2 h-4 bg-orange-500 rounded-full inline-block"></span>
-          สินค้าแนะนำสำหรับคุณ
-        </h3>
-        <span className="text-xs font-semibold text-orange-600 dark:text-orange-400 cursor-pointer hover:underline">
-          ดูทั้งหมด &gt;
-        </span>
-      </div>
+        {/* Grid สินค้า รองรับจอคอม (4 คอลัมน์บนจอ PC ใหญ่) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          {mockProducts.map((item) => (
+            <ThreeDCard key={item.id} item={item} />
+          ))}
+        </div>
 
-      {/* Grid สินค้าแบบ 2 คอลัมน์ดูโปร */}
-      <div className="grid grid-cols-2 gap-3">
-        {mockProducts.map((item) => (
-          <ThreeDCard key={item.id} item={item} />
-        ))}
-      </div>
+      </main>
 
+      {/* หน้า Login Modal */}
+      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
     </div>
   );
 }
