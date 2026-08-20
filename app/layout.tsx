@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { ThemeProvider } from './context/ThemeContext';
+import FloatingNav from './components/FloatingNav';
 
 export const metadata: Metadata = {
   title: 'Campus Marketplace',
@@ -14,12 +15,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="th" className="dark">
-      {/* แก้ตรงนี้: กำหนด bg-white สำหรับ Light Mode และ dark:bg-slate-950 สำหรับ Dark Mode */}
-      <body className="bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-300">
+      <body className="min-h-screen transition-colors duration-500 pb-24">
         <ThemeProvider>
-          <main className="max-w-md mx-auto min-h-screen bg-white dark:bg-slate-900 border-x border-slate-200 dark:border-slate-800 p-4 shadow-xl transition-colors duration-300">
+          <main className="max-w-md mx-auto p-4">
             {children}
           </main>
+          <FloatingNav />
         </ThemeProvider>
       </body>
     </html>
