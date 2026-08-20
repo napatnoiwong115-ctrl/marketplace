@@ -4,10 +4,16 @@
 
 @layer base {
   body {
-    @apply bg-slate-100 text-slate-900 transition-colors duration-300;
+    @apply bg-slate-100 text-slate-900 transition-colors duration-500;
   }
   
+  /* โหมดมืดสไตล์ Magic Bazaar โทนเวทมนตร์ลึกลับ */
   html.dark body {
     @apply bg-slate-950 text-slate-100;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(147, 51, 234, 0.25) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.2) 0px, transparent 50%),
+      radial-gradient(at 50% 50%, rgba(236, 72, 153, 0.15) 0px, transparent 50%);
+    background-attachment: fixed;
   }
 }

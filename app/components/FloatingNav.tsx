@@ -9,34 +9,34 @@ export default function FloatingNav() {
 
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
-      <nav className="flex items-center gap-2 p-2 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 shadow-2xl">
+      <nav className="flex items-center gap-3 p-2.5 rounded-full bg-white/70 dark:bg-slate-900/80 backdrop-blur-2xl border border-purple-300/50 dark:border-purple-500/40 shadow-[0_10px_30px_rgba(147,51,234,0.25)]">
         <Link
           href="/home"
-          className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-300 ${
+          className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 ${
             pathname === '/home'
-              ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/40 scale-105'
-              : 'text-slate-600 dark:text-slate-400 hover:text-indigo-600'
+              ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/50 scale-105'
+              : 'text-slate-600 dark:text-purple-300 hover:text-purple-500'
           }`}
         >
-          🏠 หน้าหลัก
+          🏰 มิติหลัก
         </Link>
         <Link
           href="/product"
-          className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-300 ${
+          className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 ${
             pathname === '/product'
-              ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/40 scale-105'
-              : 'text-slate-600 dark:text-slate-400 hover:text-indigo-600'
+              ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/50 scale-105'
+              : 'text-slate-600 dark:text-purple-300 hover:text-purple-500'
           }`}
         >
-          ➕ เพิ่มสินค้า
+          📜 หลอมไอเทม
         </Link>
         <button
           onClick={toggleTheme}
           type="button"
-          className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-xs hover:scale-110 transition cursor-pointer"
-          title="สลับโหมด"
+          className="p-2 rounded-full bg-purple-100 dark:bg-purple-950/80 text-xs border border-purple-300/50 dark:border-purple-500/40 hover:scale-110 transition cursor-pointer"
+          title="สลับมิติพลังงาน"
         >
-          {theme === 'dark' ? '☀️' : '🌙'}
+          {theme === 'dark' ? '🔮' : '☀️'}
         </button>
       </nav>
     </div>
