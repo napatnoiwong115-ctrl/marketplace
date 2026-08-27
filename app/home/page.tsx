@@ -1,81 +1,142 @@
 'use client';
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { useTheme } from '../context/ThemeContext';
 
 interface Product {
   id: number;
   name: string;
   price: number;
+  originalPrice: number;
+  discount: string;
+  rating: number;
+  reviews: number;
   image: string;
+  badge?: string;
 }
 
 const mockProducts: Product[] = [
-  { id: 1, name: 'หนังสือเรียน Programming 101', price: 150, image: '📚' },
-  { id: 2, name: 'เสื้อช็อป ไซส์ L มือสอง', price: 250, image: '👕' },
-  { id: 3, name: 'หูฟัง Bluetooth เสียงดี', price: 390, image: '🎧' },
-  { id: 4, name: 'กระเป๋าเป้ นักศึกษา', price: 200, image: '🎒' },
-  { id: 5, name: 'เครื่องคิดเลข วิทยาศาสตร์', price: 450, image: '🔢' },
+  { 
+    id: 1, 
+    name: 'หนังสือเรียน Programming 101 สภาพดี 99%', 
+    price: 150, 
+    originalPrice: 350, 
+    discount: '-57%', 
+    rating: 4.9, 
+    reviews: 42, 
+    badge: 'หนังสือ',
+    image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80' 
+  },
+  { 
+    id: 2, 
+    name: 'เสื้อช็อป ไซส์ L มือสอง สภาพนางฟ้า', 
+    price: 250, 
+    originalPrice: 450, 
+    discount: '-44%', 
+    rating: 5.0, 
+    reviews: 18, 
+    badge: 'เครื่องแต่งกาย',
+    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80' 
+  },
+  { 
+    id: 3, 
+    name: 'หูฟัง Bluetooth เสียงดี เบสแน่น ตัดเสียงรบกวน', 
+    price: 390, 
+    originalPrice: 890, 
+    discount: '-56%', 
+    rating: 4.8, 
+    reviews: 95, 
+    badge: 'IT & GADGET',
+    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80' 
+  },
+  { 
+    id: 4, 
+    name: 'กระเป๋าเป้ นักศึกษา ช่องเยอะ กันน้ำ', 
+    price: 200, 
+    originalPrice: 490, 
+    discount: '-59%', 
+    rating: 4.9, 
+    reviews: 31, 
+    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80' 
+  },
 ];
 
-export default function HomePage() {
-  const { theme, toggleTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
+export default function HomeRoutePage() {
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex justify-between items-center pb-2 border-b border-gray-200 dark:border-slate-800">
-        <div className="flex items-center gap-3">
-          <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-            สินค้าในวิทยาลัย
-          </h1>
-
-          {/* ปุ่มสลับโหมด */}
-          {mounted && (
-            <button
-              onClick={toggleTheme}
-              type="button"
-              className="p-2 rounded-xl bg-gray-200 hover:bg-gray-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-gray-800 dark:text-yellow-400 font-medium transition cursor-pointer text-xs flex items-center gap-1 shadow-sm"
-            >
-              {theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode'}
-            </button>
-          )}
-        </div>
-
-        <Link
-          href="/product"
-          className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 py-2 rounded-xl transition"
+    // max-w-[1600px] ช่วยขยายความกว้างเต็มตาสำหรับจอแนวนอนกว้างๆ
+    <div className="max-w-[1600px] mx-auto px-6 py-6 space-y-6">
+      
+      {/* Header สินค้าในวิทยาลัย */}
+      <div className="flex justify-between items-center bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+        <h1 className="text-xl font-black text-slate-900 dark:text-white flex items-center gap-2">
+          <span className="w-3 h-6 bg-orange-500 rounded-full inline-block"></span>
+          สินค้าในวิทยาลัย
+        </h1>
+        <button 
+          type="button"
+          className="bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm px-5 py-2.5 rounded-xl transition shadow-md cursor-pointer"
         >
           + เพิ่มสินค้า
-        </Link>
+        </button>
       </div>
 
-      {/* Product Grid */}
-      <div className="grid grid-cols-2 gap-3">
+      {/* Grid สินค้าแนวนอน: 
+          - มือถือแนวนอน/มือถือทั่วไป (2 คอลัมน์)
+          - แท็บเล็ต (3-4 คอลัมน์)
+          - จอคอมแนวนอน (5-6 คอลัมน์) 
+      */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
         {mockProducts.map((item) => (
-          <div
+          <div 
             key={item.id}
-            className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-2xl p-3 flex flex-col justify-between shadow-sm transition-colors duration-200"
+            className="group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-800 flex flex-col justify-between cursor-pointer"
           >
-            <div className="w-full aspect-square bg-gray-100 dark:bg-slate-800 rounded-xl flex items-center justify-center text-3xl mb-3">
-              {item.image}
+            {/* รูปภาพสินค้า */}
+            <div className="relative w-full aspect-square bg-slate-100 dark:bg-slate-800 overflow-hidden">
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute top-2 right-2 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[11px] font-extrabold px-2 py-0.5 rounded-full shadow-md">
+                {item.discount}
+              </div>
+              {item.badge && (
+                <div className="absolute top-2 left-2 bg-slate-900/80 backdrop-blur-md text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md border border-amber-400/30">
+                  {item.badge}
+                </div>
+              )}
             </div>
-            <div>
-              <h2 className="text-sm font-medium text-gray-800 dark:text-slate-200 line-clamp-2 leading-tight mb-2">
+
+            {/* รายละเอียดสินค้า */}
+            <div className="p-3 flex flex-col justify-between flex-1">
+              <h2 className="text-xs font-medium text-slate-800 dark:text-slate-100 line-clamp-2 leading-snug mb-2 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
                 {item.name}
               </h2>
-              <p className="text-indigo-600 dark:text-indigo-400 font-bold text-base">
-                ฿{item.price}
-              </p>
+
+              <div>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-base font-black text-orange-600 dark:text-orange-500">
+                    ฿{item.price.toLocaleString()}
+                  </span>
+                  <span className="text-[11px] text-slate-400 line-through">
+                    ฿{item.originalPrice.toLocaleString()}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+                  <div className="flex items-center gap-1">
+                    <span className="text-amber-400 text-xs">★</span>
+                    <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300">{item.rating}</span>
+                  </div>
+                  <span className="text-[10px] text-slate-400">
+                    ขายแล้ว {item.reviews} ชิ้น
+                  </span>
+                </div>
+              </div>
             </div>
+
           </div>
         ))}
       </div>
+
     </div>
   );
 }
