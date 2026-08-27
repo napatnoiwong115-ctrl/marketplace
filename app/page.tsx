@@ -66,41 +66,41 @@ export default function HomePage() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100">
-      {/* Navbar ด้านบน */}
+    <div className="w-full min-h-screen">
+      {/* Navbar แนวนอนเต็มความกว้าง */}
       <Navbar onOpenLogin={() => setIsLoginOpen(true)} />
 
-      {/* Main Content บนจอ PC */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+      {/* Main Content ขยายกว้างเต็มตาแนวนอน */}
+      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         
-        {/* Banner โปรโมชันขนาดใหญ่สำหรับจอคอม */}
-        <div className="bg-gradient-to-r from-orange-500 via-amber-500 to-rose-500 rounded-3xl p-6 sm:p-10 text-white shadow-xl shadow-orange-500/15 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="space-y-2">
+        {/* Banner แนวนอนขนาดใหญ่ */}
+        <div className="bg-gradient-to-r from-orange-500 via-amber-500 to-rose-500 rounded-3xl p-8 sm:p-12 text-white shadow-xl flex flex-col sm:flex-row justify-between items-center gap-6">
+          <div className="space-y-3 text-center sm:text-left">
             <span className="text-xs font-black uppercase tracking-widest bg-white/20 px-3 py-1 rounded-full">
               CAMPUS BIG SALE
             </span>
-            <h1 className="text-2xl sm:text-4xl font-black">ศูนย์รวมสินค้าและอุปกรณ์นักศึกษา</h1>
-            <p className="text-sm text-white/90">ซื้อ-ขาย ปลอดภัย ภายในรั้ววิทยาลัย</p>
+            <h1 className="text-3xl sm:text-5xl font-black">ศูนย์รวมสินค้าและอุปกรณ์นักศึกษา</h1>
+            <p className="text-base text-white/90">ซื้อ-ขาย ปลอดภัย ภายในรั้ววิทยาลัย</p>
           </div>
           <button 
             type="button"
             onClick={() => setIsLoginOpen(true)}
-            className="bg-white text-orange-600 hover:bg-slate-100 font-bold px-6 py-3 rounded-full shadow-lg transition cursor-pointer whitespace-nowrap"
+            className="bg-white text-orange-600 hover:bg-slate-100 font-bold px-8 py-4 rounded-2xl shadow-lg transition cursor-pointer text-base whitespace-nowrap"
           >
             เริ่มลงขายสินค้า
           </button>
         </div>
 
-        {/* แถบหัวข้อ สินค้าแนะนำ */}
-        <div className="flex justify-between items-center">
-          <h2 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
-            <span className="w-2.5 h-5 bg-orange-500 rounded-full inline-block"></span>
+        {/* หัวข้อสินค้า */}
+        <div className="flex justify-between items-center pt-2">
+          <h2 className="text-xl font-black text-slate-900 dark:text-white flex items-center gap-2">
+            <span className="w-3 h-6 bg-orange-500 rounded-full inline-block"></span>
             สินค้าแนะนำสำหรับคุณ
           </h2>
         </div>
 
-        {/* Grid สินค้า รองรับจอคอม (4 คอลัมน์บนจอ PC ใหญ่) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        {/* Grid การ์ดสินค้าแนวนอน 4-5 คอลัมน์เต็มหน้าจอ */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
           {mockProducts.map((item) => (
             <ThreeDCard key={item.id} item={item} />
           ))}
@@ -108,7 +108,7 @@ export default function HomePage() {
 
       </main>
 
-      {/* หน้า Login Modal */}
+      {/* Popup เข้าสู่ระบบ */}
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
     </div>
   );
