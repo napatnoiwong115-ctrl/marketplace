@@ -1,92 +1,91 @@
 'use client';
+
 import { useState } from 'react';
 
-interface Product {
+export interface AccountProduct {
   id: number;
-  name: string;
+  title: string;
   price: number;
   originalPrice?: number;
-  discount?: string;
-  rating?: number;
-  reviews?: number;
+  level: string;
+  fightingStyle?: string;
+  fruit?: string;
   image: string;
   badge?: string;
+  stock: number;
 }
 
-export default function ThreeDCard({ item }: { item: Product }) {
-  const [isSelected, setIsSelected] = useState(false);
+export default function ThreeDCard({ item }: { item: AccountProduct }) {
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
-      onClick={() => setIsSelected(!isSelected)}
-      className={`group relative bg-slate-900/70 hover:bg-slate-900 rounded-3xl overflow-hidden 
-        transition-all duration-300 ease-out cursor-pointer select-none
-        border ${isSelected ? 'border-sky-400 ring-4 ring-sky-500/30 scale-[1.02]' : 'border-slate-800/80 hover:border-sky-500/50'}
-        shadow-lg hover:shadow-2xl hover:shadow-sky-950/60 hover:-translate-y-1.5 active:scale-95`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group relative bg-white dark:bg-zinc-900/90 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 hover:border-amber-400 dark:hover:border-yellow-400 transition-all duration-300 shadow-md hover:shadow-xl hover:shadow-amber-500/10 hover:-translate-y-1 flex flex-col justify-between"
     >
-      {/* เอฟเฟกต์แสงสะท้อนเรืองแสงเบื้องหลังตอนเลือก */}
-      {isSelected && (
-        <div className="absolute inset-0 bg-gradient-to-tr from-sky-500/10 via-transparent to-amber-500/10 pointer-events-none z-10 animate-pulse" />
-      )}
-
-      {/* รูปภาพสินค้า + Zoom Animation */}
-      <div className="relative w-full aspect-square bg-slate-950 overflow-hidden">
+      {/* ภาพไอดีไก่ตัน */}
+      <div className="relative w-full aspect-video bg-zinc-950 overflow-hidden">
         <img
           src={item.image}
-          alt={item.name}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out opacity-90 group-hover:opacity-100"
+          alt={item.title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80" />
+        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent" />
         
-        {/* ป้ายส่วนลด */}
-        {item.discount && (
-          <div className="absolute top-3 right-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white text-[11px] font-black px-2.5 py-1 rounded-xl shadow-lg shadow-sky-950/50 backdrop-blur-md group-hover:scale-105 transition-transform">
-            {item.discount}
-          </div>
-        )}
-
-        {/* ป้าย Badge สีทอง */}
+        {/* ป้ายกำกับ / Badge */}
         {item.badge && (
-          <div className="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md text-amber-300 text-[10px] font-extrabold px-2.5 py-1 rounded-xl border border-amber-400/30 group-hover:border-amber-400/60 transition-colors">
-            {item.badge}
+          <div className="absolute top-3 left-3 bg-amber-400 text-zinc-950 font-extrabold text-[11px] px-3 py-1 rounded-xl shadow-lg border border-yellow-300">
+            ⚡ {item.badge}
           </div>
         )}
 
-        {/* ตราสัญลักษณ์เมื่อถูกเลือก (Selected Checkmark) */}
-        {isSelected && (
-          <div className="absolute bottom-3 right-3 z-20 bg-sky-500 text-slate-950 w-7 h-7 rounded-full flex items-center justify-center font-black text-xs shadow-lg animate-bounce">
-            ✓
-          </div>
-        )}
+        <div className="absolute bottom-2 left-3 text-xs font-bold text-yellow-300 bg-zinc-950/80 px-2.5 py-1 rounded-lg backdrop-blur-md">
+          Lv. {item.level}
+        </div>
       </div>
 
       {/* รายละเอียดสินค้า */}
-      <div className="p-4 flex flex-col justify-between flex-1 relative z-10">
-        <h2 className="text-sm font-semibold text-slate-200 line-clamp-2 leading-relaxed mb-3 group-hover:text-sky-300 transition-colors">
-          {item.name}
-        </h2>
-
+      <div className="p-4 flex-1 flex flex-col justify-between">
         <div>
-          <div className="flex items-baseline gap-2">
-            <span className="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-sky-300 to-amber-300">
-              ฿{item.price.toLocaleString()}
-            </span>
-            {item.originalPrice && (
-              <span className="text-xs text-slate-500 line-through">
-                ฿{item.originalPrice.toLocaleString()}
-              </span>
+          <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-sm sm:text-base line-clamp-1 group-hover:text-amber-500 dark:group-hover:text-yellow-400 transition-colors">
+            {item.title}
+          </h3>
+
+          {/* รายละเอียดจุดเด่นไอดี */}
+          <div className="mt-3 space-y-1 text-xs text-zinc-600 dark:text-zinc-400">
+            {item.fightingStyle && (
+              <div className="flex items-center gap-1.5">
+                <span className="text-amber-500">🥊</span>
+                <span>หมัด: <strong className="text-zinc-800 dark:text-zinc-200">{item.fightingStyle}</strong></span>
+              </div>
+            )}
+            {item.fruit && (
+              <div className="flex items-center gap-1.5">
+                <span className="text-amber-500">🍇</span>
+                <span>ผลการตื่น: <strong className="text-zinc-800 dark:text-zinc-200">{item.fruit}</strong></span>
+              </div>
             )}
           </div>
+        </div>
 
-          <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-800/80">
-            <div className="flex items-center gap-1.5">
-              <span className="text-amber-400 text-xs">★</span>
-              <span className="text-xs font-bold text-slate-300">{item.rating ?? 5.0}</span>
+        {/* ราคา & ปุ่มสั่งซื้อ */}
+        <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center justify-between">
+          <div>
+            <div className="text-xs text-zinc-400 line-through">
+              {item.originalPrice ? `฿${item.originalPrice}` : ''}
             </div>
-            <span className="text-[11px] text-slate-400 group-hover:text-slate-300 transition-colors">
-              ขายแล้ว {item.reviews ?? 0} ชิ้น
-            </span>
+            <div className="text-xl font-black text-amber-500 dark:text-yellow-400">
+              ฿{item.price.toLocaleString()}
+            </div>
           </div>
+
+          <button
+            type="button"
+            className="bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-zinc-950 text-xs font-black px-4 py-2.5 rounded-xl shadow-md shadow-amber-400/20 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+          >
+            ซื้อทันที 🛒
+          </button>
         </div>
       </div>
     </div>

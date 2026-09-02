@@ -1,66 +1,62 @@
 'use client';
-import { useState } from 'react';
-import { useTheme } from '../context/ThemeContext';
 
-export default function Navbar({ onOpenLogin }: { onOpenLogin: () => void }) {
-  const { theme, toggleTheme } = useTheme();
+import { useState } from 'react';
+import ThemeToggle from './ThemeToggle';
+
+export default function Navbar({ onOpenLogin }: { onOpenLogin?: () => void }) {
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
-    <header className="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/80 shadow-2xl">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-6">
+    <header className="sticky top-0 z-40 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-200 dark:border-zinc-800 transition-colors">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
         
-        {/* โลโก้สไตล์หรูหรา */}
+        {/* โลโก้ร้านไอดีไก่ตัน */}
         <div className="flex items-center gap-3 cursor-pointer group">
-          <div className="w-11 h-11 bg-gradient-to-tr from-sky-600 via-blue-500 to-amber-300 rounded-2xl flex items-center justify-center text-slate-950 font-black text-2xl shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-all duration-300">
-            C
+          <div className="w-11 h-11 bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-300 rounded-2xl flex items-center justify-center text-zinc-950 font-black text-2xl shadow-lg shadow-amber-500/30 group-hover:scale-105 transition-all duration-300">
+            ⚡
           </div>
           <div className="flex flex-col">
-            <span className="text-xl font-black tracking-widest text-white leading-none">
-              CAMPUS<span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-amber-300">LUXE</span>
+            <span className="text-xl font-black tracking-wider text-zinc-900 dark:text-white leading-none">
+              KAITAN<span className="text-amber-500 dark:text-yellow-400">SHOP</span>
             </span>
-            <span className="text-[10px] tracking-[0.2em] text-slate-400 uppercase font-semibold">Premium Marketplace</span>
+            <span className="text-[10px] tracking-[0.15em] text-amber-600 dark:text-amber-400 uppercase font-bold">
+              ขายไอดีไก่ตัน 100%
+            </span>
           </div>
         </div>
 
-        {/* แถบค้นหาดีไซน์พรีเมียม */}
-        <div className="flex-1 max-w-2xl">
-          <div className="relative group">
+        {/* ช่องค้นหาไอดี */}
+        <div className="flex-1 max-w-xl hidden md:block">
+          <div className="relative">
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="ค้นหาสินค้าแบรนด์เนม, อุปกรณ์ระดับพรีเมียม..."
-              className="w-full bg-slate-900/90 text-slate-100 placeholder-slate-500 pl-11 pr-28 py-3 rounded-2xl text-sm outline-none border border-slate-800 focus:border-sky-500/50 focus:ring-2 focus:ring-sky-500/20 transition-all shadow-inner"
+              placeholder="ค้นหา เช่น เผ่า V4, หมัด Godhuman, ผลโมจิ..."
+              className="w-full bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 pl-11 pr-24 py-2.5 rounded-2xl text-sm outline-none border border-zinc-300 dark:border-zinc-800 focus:border-amber-400 dark:focus:border-yellow-400 transition-all shadow-inner"
             />
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 text-sm">
               🔍
             </span>
             <button 
               type="button"
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs font-bold px-5 py-2 rounded-xl transition-all shadow-md shadow-sky-500/20 cursor-pointer"
+              className="absolute right-1.5 top-1/2 -translate-y-1/2 bg-amber-400 hover:bg-yellow-400 text-zinc-950 text-xs font-black px-4 py-1.5 rounded-xl transition-all shadow-md shadow-amber-400/20 cursor-pointer"
             >
               ค้นหา
             </button>
           </div>
         </div>
 
-        {/* ปุ่มควบคุม */}
-        <div className="flex items-center gap-4">
-          <button
-            onClick={toggleTheme}
-            type="button"
-            className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition cursor-pointer"
-          >
-            {theme === 'dark' ? '☀️' : '🌙'}
-          </button>
+        {/* ปุ่มสลับโหมด & เข้าสู่ระบบ */}
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
           
           <button
             onClick={onOpenLogin}
             type="button"
-            className="bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-500 hover:opacity-95 text-slate-950 text-xs sm:text-sm font-extrabold px-6 py-3 rounded-xl transition-all shadow-lg shadow-amber-500/20 cursor-pointer tracking-wider"
+            className="bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-zinc-950 text-xs sm:text-sm font-extrabold px-5 py-2.5 rounded-2xl transition-all shadow-lg shadow-amber-400/20 hover:scale-105 active:scale-95 cursor-pointer tracking-wider"
           >
-            เข้าสู่ระบบ
+            🔑 เข้าสู่ระบบ
           </button>
         </div>
 

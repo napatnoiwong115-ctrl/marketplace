@@ -1,117 +1,100 @@
 'use client';
-import { useState } from 'react';
+
 import Navbar from './components/Navbar';
-import LoginModal from './components/LoginModal';
-import ThreeDCard from './components/ThreeDCard';
+import ThreeDCard, { AccountProduct } from './components/ThreeDCard';
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  originalPrice?: number;
-  discount?: string;
-  rating?: number;
-  reviews?: number;
-  image: string;
-  badge?: string;
-}
-
-const mockProducts: Product[] = [
-  { 
-    id: 1, 
-    name: 'GUC กระเป๋าสะพายข้าง ทรงสวยจุของได้เยอะ หนังนุ่มพรีเมียม', 
-    price: 149, 
-    originalPrice: 390, 
-    discount: '-61%', 
-    rating: 4.9, 
-    reviews: 120, 
-    badge: 'LUXE',
-    image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&auto=format&fit=crop&q=80' 
+const mockAccounts: AccountProduct[] = [
+  {
+    id: 1,
+    title: 'ไก่ตันเผ่า V4 สุ่ม สุ่มหมัด Godhuman + ผลโมจิตื่น',
+    price: 159,
+    originalPrice: 250,
+    level: '2555 (MAX)',
+    fightingStyle: 'Godhuman',
+    fruit: 'Mochi Awakened',
+    image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop',
+    badge: 'ขายดีมาก',
+    stock: 12,
   },
-  { 
-    id: 2, 
-    name: 'เสื้อช็อปนักศึกษา ผ้าคอมทวิวเนื้อดี ใส่สบาย ไม่ร้อน', 
-    price: 250, 
-    originalPrice: 450, 
-    discount: '-44%', 
-    rating: 5.0, 
-    reviews: 85, 
-    badge: 'RECOMMENDED',
-    image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80' 
+  {
+    id: 2,
+    title: 'ไก่ตันดาบคู่ Cursed Dual Katana + เผ่ามังกร V4',
+    price: 289,
+    originalPrice: 390,
+    level: '2555 (MAX)',
+    fightingStyle: 'Dragon Talon',
+    fruit: 'Dragon Fruit',
+    image: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=600&auto=format&fit=crop',
+    badge: 'การันตีดาบคู่',
+    stock: 5,
   },
-  { 
-    id: 3, 
-    name: 'หูฟังไร้สาย Bluetooth 5.3 ตัดเสียงรบกวน เบสหนัก', 
-    price: 399, 
-    originalPrice: 1290, 
-    discount: '-69%', 
-    rating: 4.8, 
-    reviews: 240, 
-    badge: 'HOT',
-    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80' 
+  {
+    id: 3,
+    title: 'ไก่ตันสายฟาร์ม ผลเสือตื่นครบ + เงิน 50M+',
+    price: 99,
+    originalPrice: 180,
+    level: '2555 (MAX)',
+    fightingStyle: 'Superhuman',
+    fruit: 'Leopard Awakened',
+    image: 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=600&auto=format&fit=crop',
+    badge: 'ราคาประหยัด',
+    stock: 20,
   },
-  { 
-    id: 4, 
-    name: 'กระเป๋าเป้นักศึกษา ช่องเยอะ กันน้ำ สายสะพายนุ่มซัพพอร์ตไหล่', 
-    price: 290, 
-    originalPrice: 590, 
-    discount: '-50%', 
-    rating: 4.9, 
-    reviews: 64, 
-    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&auto=format&fit=crop&q=80' 
+  {
+    id: 4,
+    title: 'ไก่ตัน VIP เผ่าไซบอร์ก V4 Full Tier + ดาบสมอ',
+    price: 450,
+    originalPrice: 600,
+    level: '2555 (MAX)',
+    fightingStyle: 'Godhuman',
+    fruit: 'Kitsune Fruit',
+    image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=600&auto=format&fit=crop',
+    badge: 'ระดับพรีเมียม',
+    stock: 3,
   },
 ];
 
-export default function HomePage() {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-
+export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
-      <Navbar onOpenLogin={() => setIsLoginOpen(true)} />
+    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 transition-colors">
+      <Navbar />
 
-      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        
-        {/* Banner โทนสีน้ำเงิน Deep Navy + ส่องประกายฟ้า-ทอง */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 border border-sky-500/20 p-8 sm:p-14 text-white shadow-2xl shadow-sky-950/50 flex flex-col sm:flex-row justify-between items-center gap-6">
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl"></div>
-          
-          <div className="space-y-4 text-center sm:text-left z-10">
-            <span className="text-xs font-bold uppercase tracking-widest text-amber-300 bg-amber-400/10 border border-amber-400/20 px-3.5 py-1.5 rounded-full inline-block">
-              CAMPUS EXCLUSIVE SELECTION
+      {/* Hero Banner โทนเหลือง */}
+      <section className="relative overflow-hidden py-12 px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto">
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-amber-400/20 dark:bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="relative bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-300 p-8 sm:p-12 rounded-3xl text-zinc-950 shadow-2xl shadow-amber-500/20 overflow-hidden">
+          <div className="max-w-2xl relative z-10">
+            <span className="bg-zinc-950 text-yellow-300 text-xs font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+              ⚡ KAITAN ID STORE
             </span>
-            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
-              ศูนย์รวมสินค้า <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-amber-300">และอุปกรณ์ระดับพรีเมียม</span>
+            <h1 className="text-3xl sm:text-5xl font-black mt-4 leading-tight tracking-tight">
+              ศูนย์รวมไอดีไก่ตัน <br />
+              <span className="text-zinc-900 underline decoration-zinc-950/30">ปลอดภัย 100% ส่งไวทันที</span>
             </h1>
-            <p className="text-sm sm:text-base text-slate-400">แพลตฟอร์มซื้อ-ขายสินค้าคุณภาพสำหรับนักศึกษาโดยเฉพาะ</p>
+            <p className="mt-3 text-sm sm:text-base font-semibold text-zinc-800/90">
+              ไอดีเวลตัน เลเวล 2555 การันตีเผ่า V4 ผลตื่นครบ พร้อมใช้งานได้ทันทีหลังชำระเงิน
+            </p>
           </div>
+        </div>
+      </section>
 
-          <button 
-            type="button"
-            onClick={() => setIsLoginOpen(true)}
-            className="z-10 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-extrabold px-8 py-4 rounded-2xl shadow-xl shadow-sky-500/25 transition-all cursor-pointer text-sm whitespace-nowrap tracking-wider"
-          >
-            เริ่มลงขายสินค้า
-          </button>
+      {/* รายการสินค้า */}
+      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h2 className="text-2xl font-black text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+              <span className="text-amber-500 dark:text-yellow-400">🔥</span> ไอดีไก่ตันแนะนำ
+            </h2>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">ไอดีพร้อมส่ง เปลี่ยนรหัสได้ทันที</p>
+          </div>
         </div>
 
-        {/* Section Header */}
-        <div className="flex justify-between items-center pt-4">
-          <h2 className="text-xl font-extrabold text-white flex items-center gap-3">
-            <span className="w-1.5 h-6 bg-gradient-to-b from-sky-400 to-blue-600 rounded-full inline-block"></span>
-            สินค้าแนะนำไฮไลต์
-          </h2>
-        </div>
-
-        {/* Grid สินค้า */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-          {mockProducts.map((item) => (
-            <ThreeDCard key={item.id} item={item} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {mockAccounts.map((account) => (
+            <ThreeDCard key={account.id} item={account} />
           ))}
         </div>
-
       </main>
-
-      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
     </div>
   );
 }

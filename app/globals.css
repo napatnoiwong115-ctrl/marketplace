@@ -1,13 +1,20 @@
-@import "tailwindcss";
-
-@custom-variant dark (&:where(.dark, .dark *));
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   body {
-    @apply bg-slate-100 text-slate-800 transition-colors duration-300 font-sans min-h-screen pb-24;
+    @apply bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 transition-colors duration-300;
   }
-  
-  html.dark body {
-    @apply bg-slate-950 text-slate-100;
-  }
+}
+
+/* Custom Scrollbar โทนเหลือง */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-zinc-200 dark:bg-zinc-900;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-amber-400 rounded-full hover:bg-yellow-500;
 }
