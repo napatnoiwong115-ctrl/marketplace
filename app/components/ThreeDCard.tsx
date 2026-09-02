@@ -1,93 +1,85 @@
 'use client';
 
-import { useState } from 'react';
-
 export interface AccountProduct {
   id: number;
   title: string;
   price: number;
-  originalPrice?: number;
+  originalPrice: number;
   level: string;
-  fightingStyle?: string;
-  fruit?: string;
+  fightingStyle: string;
+  fruit: string;
   image: string;
   badge?: string;
   stock: number;
 }
 
 export default function ThreeDCard({ item }: { item: AccountProduct }) {
-  const [isHovered, setIsHovered] = useState(false);
+  const discountPercent = Math.round(((item.originalPrice - item.price) / item.originalPrice) * 100);
 
   return (
-    <div
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="group relative bg-white dark:bg-zinc-900/90 rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 hover:border-amber-400 dark:hover:border-yellow-400 transition-all duration-300 shadow-md hover:shadow-xl hover:shadow-amber-500/10 hover:-translate-y-1 flex flex-col justify-between"
-    >
-      {/* ภาพไอดีไก่ตัน */}
-      <div className="relative w-full aspect-video bg-zinc-950 overflow-hidden">
-        <img
-          src={item.image}
-          alt={item.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent" />
-        
-        {/* ป้ายกำกับ / Badge */}
-        {item.badge && (
-          <div className="absolute top-3 left-3 bg-amber-400 text-zinc-950 font-extrabold text-[11px] px-3 py-1 rounded-xl shadow-lg border border-yellow-300">
-            ⚡ {item.badge}
+    <div className="group relative bg-[#0d0d14] rounded-2xl border border-zinc-800/80 hover:border-orange-500/50 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-500 flex flex-col justify-between">
+      
+      {/* Visual Image */}
+      <div>
+        <div className="relative aspect-[16/10] overflow-hidden bg-zinc-900">
+          <img
+            src={item.image}
+            alt={item.title}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d14] via-transparent to-black/40" />
+
+          {/* Badges */}
+          <div className="absolute top-3 left-3 flex gap-2">
+            {item.badge && (
+              <span className="bg-gradient-to-r from-orange-500 to-amber-500 text-zinc-950 font-black text-[10px] px-2.5 py-1 rounded-lg shadow-lg uppercase tracking-wider">
+                {item.badge}
+              </span>
+            )}
           </div>
-        )}
 
-        <div className="absolute bottom-2 left-3 text-xs font-bold text-yellow-300 bg-zinc-950/80 px-2.5 py-1 rounded-lg backdrop-blur-md">
-          Lv. {item.level}
+          <span className="absolute top-3 right-3 bg-red-600/90 text-white font-black text-[10px] px-2 py-0.5 rounded-md backdrop-blur-md">
+            -{discountPercent}%
+          </span>
+
+          <span className="absolute bottom-2.5 left-3 text-[11px] font-black text-amber-400 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-lg border border-amber-500/20">
+            ⚡ MAX LV. {item.level}
+          </span>
         </div>
-      </div>
 
-      {/* รายละเอียดสินค้า */}
-      <div className="p-4 flex-1 flex flex-col justify-between">
-        <div>
-          <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-sm sm:text-base line-clamp-1 group-hover:text-amber-500 dark:group-hover:text-yellow-400 transition-colors">
+        {/* Content */}
+        <div className="p-4 space-y-3">
+          <h3 className="font-extrabold text-sm text-zinc-100 line-clamp-2 leading-snug group-hover:text-orange-400 transition-colors">
             {item.title}
           </h3>
 
-          {/* รายละเอียดจุดเด่นไอดี */}
-          <div className="mt-3 space-y-1 text-xs text-zinc-600 dark:text-zinc-400">
-            {item.fightingStyle && (
-              <div className="flex items-center gap-1.5">
-                <span className="text-amber-500">🥊</span>
-                <span>หมัด: <strong className="text-zinc-800 dark:text-zinc-200">{item.fightingStyle}</strong></span>
-              </div>
-            )}
-            {item.fruit && (
-              <div className="flex items-center gap-1.5">
-                <span className="text-amber-500">🍇</span>
-                <span>ผลการตื่น: <strong className="text-zinc-800 dark:text-zinc-200">{item.fruit}</strong></span>
-              </div>
-            )}
+          <div className="flex flex-wrap gap-1.5">
+            <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-md bg-zinc-900 text-zinc-300 border border-zinc-800">
+              🥊 {item.fightingStyle}
+            </span>
+            <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-md bg-orange-950/40 text-amber-400 border border-orange-500/20">
+              🍇 {item.fruit}
+            </span>
           </div>
-        </div>
-
-        {/* ราคา & ปุ่มสั่งซื้อ */}
-        <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center justify-between">
-          <div>
-            <div className="text-xs text-zinc-400 line-through">
-              {item.originalPrice ? `฿${item.originalPrice}` : ''}
-            </div>
-            <div className="text-xl font-black text-amber-500 dark:text-yellow-400">
-              ฿{item.price.toLocaleString()}
-            </div>
-          </div>
-
-          <button
-            type="button"
-            className="bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-zinc-950 text-xs font-black px-4 py-2.5 rounded-xl shadow-md shadow-amber-400/20 transition-all hover:scale-105 active:scale-95 cursor-pointer"
-          >
-            ซื้อทันที 🛒
-          </button>
         </div>
       </div>
+
+      {/* Footer */}
+      <div className="p-4 pt-0 mt-auto border-t border-zinc-800/40 flex items-center justify-between gap-2">
+        <div className="pt-3">
+          <div className="text-[11px] text-zinc-500 line-through font-bold">
+            ฿{item.originalPrice}
+          </div>
+          <div className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">
+            ฿{item.price}
+          </div>
+        </div>
+
+        <button className="mt-3 px-5 py-2.5 rounded-xl font-black text-xs bg-gradient-to-r from-orange-500 to-amber-500 text-zinc-950 hover:shadow-lg hover:shadow-orange-500/20 hover:scale-105 active:scale-95 transition-all">
+          สั่งซื้อทันที
+        </button>
+      </div>
+
     </div>
   );
 }
