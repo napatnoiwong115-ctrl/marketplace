@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th" class="dark">
+    <html lang="th" className="dark">
       <body className={`${kanit.className} min-h-screen antialiased`}>
         <ThemeProvider>
           {children}
