@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Navbar from './components/Navbar';
 import ThreeDCard, { AccountProduct } from './components/ThreeDCard';
 
@@ -54,46 +55,90 @@ const mockAccounts: AccountProduct[] = [
   },
 ];
 
+const categories = ['ทั้งหมด', '🔥 ขายดี', '⚡ เผ่า V4', '🗡️ สายดาบ', '🍇 ผลตื่นครบ'];
+
 export default function Home() {
+  const [selectedCat, setSelectedCat] = useState('ทั้งหมด');
+
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 transition-colors">
+    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors">
       <Navbar />
 
-      {/* Hero Banner โทนเหลือง */}
-      <section className="relative overflow-hidden py-12 px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto">
-        <div className="absolute -top-24 -left-24 w-96 h-96 bg-amber-400/20 dark:bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-300 p-8 sm:p-12 rounded-3xl text-zinc-950 shadow-2xl shadow-amber-500/20 overflow-hidden">
-          <div className="max-w-2xl relative z-10">
-            <span className="bg-zinc-950 text-yellow-300 text-xs font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider">
-              ⚡ KAITAN ID STORE
-            </span>
-            <h1 className="text-3xl sm:text-5xl font-black mt-4 leading-tight tracking-tight">
+      {/* Hero Banner Section */}
+      <section className="relative overflow-hidden py-10 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto">
+        {/* แสงเอฟเฟกต์ด้านหลัง */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-amber-500/15 dark:bg-amber-400/10 blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="relative rounded-3xl p-8 sm:p-12 bg-gradient-to-r from-zinc-900 via-zinc-900 to-zinc-950 border border-zinc-800 shadow-2xl overflow-hidden">
+          <div className="max-w-2xl relative z-10 space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-extrabold tracking-wide uppercase">
+              <span>🚀</span> ระบบจัดส่งอัตโนมัติ 24 ชม.
+            </div>
+            
+            <h1 className="text-3xl sm:text-5xl font-black text-white leading-tight">
               ศูนย์รวมไอดีไก่ตัน <br />
-              <span className="text-zinc-900 underline decoration-zinc-950/30">ปลอดภัย 100% ส่งไวทันที</span>
+              <span className="bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 bg-clip-text text-transparent">
+                ปลอดภัย 100% ส่งไวทันที
+              </span>
             </h1>
-            <p className="mt-3 text-sm sm:text-base font-semibold text-zinc-800/90">
-              ไอดีเวลตัน เลเวล 2555 การันตีเผ่า V4 ผลตื่นครบ พร้อมใช้งานได้ทันทีหลังชำระเงิน
+
+            <p className="text-sm sm:text-base text-zinc-400 font-medium">
+              ไอดีเลเวล 2555 MAX การันตีเผ่า V4 ผลตื่นครบ เปลี่ยนรหัสได้ทันทีหลังชำระเงิน พร้อมประกันหลังการขาย
             </p>
+
+            {/* แถบการันตี Trust Badges */}
+            <div className="pt-2 flex flex-wrap gap-6 text-xs text-zinc-300 font-semibold border-t border-zinc-800/80">
+              <div className="flex items-center gap-2">
+                <span className="text-amber-400">✓</span> รับประกันไอดีตรงสเปก
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-amber-400">✓</span> เคลมง่าย มีแอดมินดูแล
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-amber-400">✓</span> ชำระเงินได้หลายช่องทาง
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* รายการสินค้า */}
-      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-        <div className="flex items-center justify-between mb-8">
+      {/* Main Content Area */}
+      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        
+        {/* หัวข้อ + ปุ่มตัวกรอง (Filter Chips) */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
-            <h2 className="text-2xl font-black text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-              <span className="text-amber-500 dark:text-yellow-400">🔥</span> ไอดีไก่ตันแนะนำ
+            <h2 className="text-2xl font-black flex items-center gap-2 tracking-tight">
+              <span>⚡</span> รายการไอดีพร้อมส่ง
             </h2>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">ไอดีพร้อมส่ง เปลี่ยนรหัสได้ทันที</p>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">เลือกซื้อไอดีคุณภาพที่ผ่านการตรวจสอบสเปกแล้ว</p>
+          </div>
+
+          {/* ตัวกรองหมวดหมู่ */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 scrollbar-none">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCat(cat)}
+                className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+                  selectedCat === cat
+                    ? 'bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/20'
+                    : 'bg-zinc-200/70 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-400 hover:bg-zinc-300 dark:hover:bg-zinc-800'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
           </div>
         </div>
 
+        {/* ตารางการ์ดสินค้า (Product Grid) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {mockAccounts.map((account) => (
             <ThreeDCard key={account.id} item={account} />
           ))}
         </div>
+
       </main>
     </div>
   );

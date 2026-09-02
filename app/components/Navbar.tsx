@@ -1,62 +1,57 @@
 'use client';
 
+import { useTheme } from '../context/ThemeContext';
 import { useState } from 'react';
-import ThemeToggle from './ThemeToggle';
 
-export default function Navbar({ onOpenLogin }: { onOpenLogin?: () => void }) {
-  const [searchTerm, setSearchTerm] = useState('');
+export default function Navbar() {
+  const { theme, toggleTheme } = useTheme();
+  const [search, setSearch] = useState('');
 
   return (
-    <header className="sticky top-0 z-40 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-200 dark:border-zinc-800 transition-colors">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+    <header className="sticky top-0 z-50 w-full border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md transition-colors">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         
-        {/* โลโก้ร้านไอดีไก่ตัน */}
-        <div className="flex items-center gap-3 cursor-pointer group">
-          <div className="w-11 h-11 bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-300 rounded-2xl flex items-center justify-center text-zinc-950 font-black text-2xl shadow-lg shadow-amber-500/30 group-hover:scale-105 transition-all duration-300">
-            ⚡
+        {/* โลโก้ร้าน */}
+        <div className="flex items-center gap-3 cursor-pointer">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-300 flex items-center justify-center font-black text-zinc-950 text-xl shadow-lg shadow-amber-500/20">
+            K
           </div>
-          <div className="flex flex-col">
-            <span className="text-xl font-black tracking-wider text-zinc-900 dark:text-white leading-none">
+          <div>
+            <div className="font-extrabold text-lg tracking-tight text-zinc-900 dark:text-zinc-100 flex items-center gap-1">
               KAITAN<span className="text-amber-500 dark:text-yellow-400">SHOP</span>
-            </span>
-            <span className="text-[10px] tracking-[0.15em] text-amber-600 dark:text-amber-400 uppercase font-bold">
-              ขายไอดีไก่ตัน 100%
-            </span>
+            </div>
+            <p className="text-[10px] text-zinc-500 dark:text-zinc-400 -mt-1 font-medium">ศูนย์รวมไอดีไก่ตัน 24 ชม.</p>
           </div>
         </div>
 
-        {/* ช่องค้นหาไอดี */}
-        <div className="flex-1 max-w-xl hidden md:block">
-          <div className="relative">
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="ค้นหา เช่น เผ่า V4, หมัด Godhuman, ผลโมจิ..."
-              className="w-full bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 pl-11 pr-24 py-2.5 rounded-2xl text-sm outline-none border border-zinc-300 dark:border-zinc-800 focus:border-amber-400 dark:focus:border-yellow-400 transition-all shadow-inner"
-            />
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 text-sm">
-              🔍
-            </span>
-            <button 
-              type="button"
-              className="absolute right-1.5 top-1/2 -translate-y-1/2 bg-amber-400 hover:bg-yellow-400 text-zinc-950 text-xs font-black px-4 py-1.5 rounded-xl transition-all shadow-md shadow-amber-400/20 cursor-pointer"
-            >
-              ค้นหา
-            </button>
-          </div>
+        {/* ช่องค้นหาสินค้า */}
+        <div className="hidden md:flex flex-1 max-w-md relative">
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="ค้นหาไอดี, เผ่า V4, หมัด Godhuman..."
+            className="w-full pl-10 pr-4 py-2 text-sm rounded-full bg-zinc-100 dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-800 focus:outline-none focus:ring-2 focus:ring-amber-500/50 transition"
+          />
+          <svg className="w-4 h-4 absolute left-3.5 top-3 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
         </div>
 
-        {/* ปุ่มสลับโหมด & เข้าสู่ระบบ */}
+        {/* ปุ่มเมนูขวา */}
         <div className="flex items-center gap-3">
-          <ThemeToggle />
-          
+          {/* ปุ่มสลับโหมด มืด / สว่าง */}
           <button
-            onClick={onOpenLogin}
-            type="button"
-            className="bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-zinc-950 text-xs sm:text-sm font-extrabold px-5 py-2.5 rounded-2xl transition-all shadow-lg shadow-amber-400/20 hover:scale-105 active:scale-95 cursor-pointer tracking-wider"
+            onClick={toggleTheme}
+            className="p-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 transition border border-zinc-200/50 dark:border-zinc-800/50"
+            title="สลับโหมด"
           >
-            🔑 เข้าสู่ระบบ
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
+
+          {/* ปุ่มเข้าสู่ระบบ */}
+          <button className="px-5 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-600 hover:to-yellow-500 text-zinc-950 shadow-md shadow-amber-500/10 hover:shadow-amber-500/20 active:scale-95 transition">
+            เข้าสู่ระบบ
           </button>
         </div>
 
