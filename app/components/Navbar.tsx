@@ -1,17 +1,29 @@
 'use client';
 
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useTheme } from '../context/ThemeContext';
-import { useState } from 'react';
+
+const navItems = [
+  { name: 'หน้าหลัก', href: '/' },
+  { name: 'เติมเงิน', href: '/topup' },
+  { name: 'รับของรางวัล', href: '/rewards' },
+  { name: 'ร้านค้า', href: '/shop' },
+  { name: 'เกมสุ่ม', href: '/gacha' },
+  { name: 'ข่าวสาร', href: '/news' },
+  { name: 'ติดต่อเรา', href: '/contact' },
+];
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-md transition-colors">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
         
-        {/* โลโก้ร้าน */}
-        <div className="flex items-center gap-3 cursor-pointer">
+        {/* โลโก้ */}
+        <Link href="/" className="flex items-center gap-3">
           <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-red-600 via-orange-500 to-amber-400 flex items-center justify-center font-black text-white text-2xl shadow-lg shadow-orange-500/30 border border-amber-300/30">
             K
           </div>
@@ -21,20 +33,29 @@ export default function Navbar() {
             </div>
             <p className="text-[10px] text-zinc-400 font-medium">NO.1 BLOX FRUITS STORE</p>
           </div>
-        </div>
+        </Link>
 
-        {/* เมนูตรงกลาง (Desktop) */}
-        <nav className="hidden lg:flex items-center gap-7 text-sm font-bold text-zinc-300">
-          <a href="#" className="text-orange-500 hover:text-orange-400 transition">หน้าหลัก</a>
-          <a href="#" className="hover:text-orange-400 transition">เติมเงิน</a>
-          <a href="#" className="hover:text-orange-400 transition">รับของรางวัล</a>
-          <a href="#" className="hover:text-orange-400 transition">ร้านค้า</a>
-          <a href="#" className="hover:text-orange-400 transition">เกมสุ่ม</a>
-          <a href="#" className="hover:text-orange-400 transition">ข่าวสาร</a>
-          <a href="#" className="hover:text-orange-400 transition">ติดต่อเรา</a>
+        {/* แท็บบาร์กดเปลี่ยนหน้า */}
+        <nav className="hidden lg:flex items-center bg-zinc-900/90 border border-zinc-800/80 p-1.5 rounded-2xl gap-1 shadow-inner">
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 ${
+                  isActive
+                    ? 'bg-gradient-to-r from-orange-500 via-amber-500 to-orange-500 text-zinc-950 shadow-md shadow-orange-500/25 scale-[1.02]'
+                    : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
+                }`}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
         </nav>
 
-        {/* เมนูขวา (เข้าสู่ระบบ / สมัครสมาชิก / สลับธีม) */}
+        {/* ปุ่มด้านขวา */}
         <div className="flex items-center gap-3">
           <button
             onClick={toggleTheme}
