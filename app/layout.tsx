@@ -1,28 +1,28 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Kanit } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./context/ThemeContext";
 
-const inter = Inter({ subsets: ["latin"] });
+const kanit = Kanit({ 
+  subsets: ["thai", "latin"],
+  weight: ["300", "400", "500", "600", "700", "800"] 
+});
 
 export const metadata: Metadata = {
-  title: "Campus Marketplace",
-  description: "ตลาดนัดนักศึกษา",
+  title: "KAITAN SHOP - ศูนย์รวมไอดีไก่ตัน การันตีแท้ 100%",
+  description: "จำหน่ายไอดีไก่ตัน Blox Fruits เผ่า V4 การันตีผลตื่น ดาบคู่ หมัด Godhuman ราคาถูก ส่งไว ปลอดภัย",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="th">
-      <body className={inter.className}>
+    <html lang="th" class="dark">
+      <body className={`${kanit.className} min-h-screen antialiased`}>
         <ThemeProvider>
-          {/* ขยายความกว้างเต็มจอแนวนอน ไม่บีบเป็นจอมือถือ */}
-          <div className="min-h-screen w-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100">
-            {children}
-          </div>
+          {children}
         </ThemeProvider>
       </body>
     </html>
