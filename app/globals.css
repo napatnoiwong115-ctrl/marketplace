@@ -3,30 +3,6 @@
 @tailwind utilities;
 
 body {
-  background-color: #fafafa;
-  color: #18181b;
-  transition: background-color 300ms ease, color 300ms ease;
-}
-
-html.dark body {
-  background-color: #09090b;
-  color: #f4f4f5;
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: #18181b;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #f59e0b;
-  border-radius: 9999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: #eab308;
+  background-color: #0a0a0c;
+  color: #ffffff;
 }

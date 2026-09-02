@@ -56,112 +56,87 @@ const mockAccounts: AccountProduct[] = [
 ];
 
 export default function Home() {
-  const [selectedCat, setSelectedCat] = useState('ทั้งหมด');
-
   return (
-    <div className="min-h-screen bg-[#0a0a0c] text-white transition-colors overflow-x-hidden">
+    <div className="min-h-screen bg-[#0a0a0c] text-white overflow-x-hidden">
       <Navbar />
 
-      {/* Hero Section สไตล์ MADMAXSHOP */}
-      <section className="relative min-h-[580px] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto">
-        
-        {/* แสงเอฟเฟกต์สีส้มฟุ้งๆ ด้านหลัง */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-orange-600/20 blur-[140px] rounded-full pointer-events-none" />
-        <div className="absolute top-1/3 right-10 w-[300px] h-[300px] bg-amber-500/15 blur-[120px] rounded-full pointer-events-none" />
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full relative z-10">
+      {/* Hero Section */}
+      <section className="relative min-h-[520px] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full relative z-10">
           
-          {/* ฝั่งซ้าย: ข้อความหลัก + ปุ่ม + รีวิว */}
-          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-            
-            {/* คำเกริ่นเล็กด้านบน */}
-            <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+          {/* ฝั่งซ้าย */}
+          <div className="lg:col-span-7 space-y-5 text-center lg:text-left">
+            <h3 className="text-2xl font-black text-white tracking-tight">
               เริ่มต้น
             </h3>
 
-            {/* หัวข้อหลัก */}
-            <div className="space-y-1">
+            <div>
               <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
                 หาสินค้าที่คุณชอบกับ
               </h1>
-              {/* ชื่อร้านตัวใหญ่ไล่สีส้ม-แดง */}
-              <div className="text-5xl sm:text-7xl font-black bg-gradient-to-r from-red-500 via-orange-500 to-amber-400 bg-clip-text text-transparent drop-shadow-[0_10px_20px_rgba(249,115,22,0.3)] tracking-tight py-2">
+              <div className="text-4xl sm:text-6xl font-black bg-gradient-to-r from-red-500 via-orange-500 to-amber-400 bg-clip-text text-transparent tracking-tight py-1">
                 KAITANSHOP
               </div>
             </div>
 
-            {/* คำอธิบายร้าน */}
-            <p className="text-sm sm:text-base text-zinc-400 font-medium max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              ร้านจำหน่ายหรือขายไอดีเกมออนไลน์ ขายไก่ตัน สุ่มไก่ตัน บริการฟาร์ม เกม ROBLOX แมพ BLOX FRUITS หรือแมพอื่นๆ อีกมากมาย เติมเกมและขายแอพพรีเมี่ยมราคาถูก
+            <p className="text-sm sm:text-base text-zinc-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              ร้านจำหน่ายหรือขายไอดีเกมออนไลน์ ขายไก่ตัน สุ่มไก่ตัน บริการฟาร์ม เกม ROBLOX แมพ BLOX FRUITS เติมเกมและขายแอพพรีเมี่ยมราคาถูก
             </p>
 
-            {/* ปุ่มกด Action */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-              <button className="px-8 py-3.5 rounded-2xl font-extrabold text-sm bg-gradient-to-r from-orange-500 to-amber-500 text-zinc-950 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
-                <span>🛒</span> เลือกซื้อสินค้า
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
+              <button className="px-6 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-orange-500 to-amber-500 text-zinc-950 shadow-lg shadow-orange-500/20 hover:scale-105 active:scale-95 transition-all">
+                🛒 เลือกซื้อสินค้า
               </button>
-              <button className="px-8 py-3.5 rounded-2xl font-extrabold text-sm bg-zinc-900/90 hover:bg-zinc-800 text-white border border-zinc-800 hover:border-zinc-700 shadow-md hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
-                <span>🎲</span> ดูเกมสุ่มแนะนำ
+              <button className="px-6 py-3 rounded-xl font-bold text-sm bg-zinc-900 text-white border border-zinc-800 hover:bg-zinc-800 transition-all">
+                🎲 ดูเกมสุ่มแนะนำ
               </button>
             </div>
 
-            {/* Avatar ผู้ใช้งานรีวิว + ดาวความพึงพอใจ */}
-            <div className="pt-6 flex items-center justify-center lg:justify-start gap-3">
-              <div className="flex -space-x-3">
-                <img className="w-10 h-10 rounded-full border-2 border-zinc-900 object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop" alt="user" />
-                <img className="w-10 h-10 rounded-full border-2 border-zinc-900 object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop" alt="user" />
-                <img className="w-10 h-10 rounded-full border-2 border-zinc-900 object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop" alt="user" />
+            {/* รีวิวผู้ใช้ + คุมขนาดรูปตายตัว */}
+            <div className="pt-4 flex items-center justify-center lg:justify-start gap-3">
+              <div className="flex -space-x-2">
+                <img style={{ width: '36px', height: '36px' }} className="rounded-full border-2 border-zinc-900 object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop" alt="user" />
+                <img style={{ width: '36px', height: '36px' }} className="rounded-full border-2 border-zinc-900 object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop" alt="user" />
+                <img style={{ width: '36px', height: '36px' }} className="rounded-full border-2 border-zinc-900 object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop" alt="user" />
               </div>
-              <div className="text-xs font-extrabold text-zinc-300">
-                148 ผู้ใช้งานรีวิว <span className="text-zinc-500">|</span> <span className="text-amber-400">ความพึงพอใจ 5 ดาว ⭐⭐⭐⭐⭐</span>
+              <div className="text-xs font-bold text-zinc-300">
+                148 ผู้ใช้งานรีวิว <span className="text-zinc-600">|</span> <span className="text-amber-400">ความพึงพอใจ 5 ดาว ⭐⭐⭐⭐⭐</span>
               </div>
             </div>
-
           </div>
 
-          {/* ฝั่งขวา: โลโก้ 3D ประจำร้านพร้อมกรอบเรืองแสง */}
-          <div className="lg:col-span-5 flex justify-center relative">
-            <div className="relative group">
-              {/* แสงวิ้งๆ หลังการ์ด */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-orange-600 to-amber-500 rounded-3xl blur-xl opacity-50 group-hover:opacity-80 transition duration-500"></div>
-              
-              {/* ตัวการ์ดแสดงโลโก้หลัก */}
-              <div className="relative w-72 h-72 sm:w-80 sm:h-80 bg-zinc-900/90 border border-zinc-800 rounded-3xl p-6 flex flex-col items-center justify-center text-center shadow-2xl backdrop-blur-xl">
-                <div className="w-28 h-28 rounded-3xl bg-gradient-to-tr from-red-600 via-orange-500 to-amber-400 flex items-center justify-center font-black text-white text-6xl shadow-xl shadow-orange-500/40 mb-4 border border-amber-300/30 animate-pulse">
-                  K
-                </div>
-                <div className="text-2xl font-black text-white tracking-wider">
-                  KAITAN <span className="text-orange-500">SHOP</span>
-                </div>
-                <p className="text-xs text-amber-400/90 font-bold mt-1 tracking-widest uppercase">
-                  ● ONLINE 24 HOURS
-                </p>
+          {/* ฝั่งขวา */}
+          <div className="lg:col-span-5 flex justify-center">
+            <div className="w-64 h-64 sm:w-72 sm:h-72 bg-zinc-900/90 border border-zinc-800 rounded-3xl p-6 flex flex-col items-center justify-center text-center shadow-2xl">
+              <div className="w-24 h-24 rounded-2xl bg-gradient-to-tr from-red-600 via-orange-500 to-amber-400 flex items-center justify-center font-black text-white text-5xl shadow-lg shadow-orange-500/30 mb-3 border border-amber-300/30">
+                K
               </div>
+              <div className="text-xl font-black text-white tracking-wider">
+                KAITAN <span className="text-orange-500">SHOP</span>
+              </div>
+              <p className="text-[10px] text-amber-400 font-bold mt-1 tracking-widest uppercase">
+                ● ONLINE 24 HOURS
+              </p>
             </div>
           </div>
 
         </div>
       </section>
 
-      {/* ส่วนแสดงรายการสินค้า ด้านล่าง */}
-      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <div className="flex items-center justify-between mb-8 border-b border-zinc-800/80 pb-4">
-          <div>
-            <h2 className="text-2xl font-black text-white flex items-center gap-2">
-              <span className="text-orange-500">🔥</span> สินค้าแนะนำประจำวัน
-            </h2>
-            <p className="text-xs text-zinc-400 mt-1">ไอดีพร้อมส่ง เปลี่ยนรหัสได้ทันที การันตีปลอดภัย 100%</p>
-          </div>
+      {/* สินค้าแนะนำ */}
+      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="flex items-center justify-between mb-6 border-b border-zinc-800 pb-3">
+          <h2 className="text-xl font-black text-white flex items-center gap-2">
+            <span className="text-orange-500">🔥</span> สินค้าแนะนำประจำวัน
+          </h2>
         </div>
 
-        {/* การ์ดสินค้า */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {mockAccounts.map((account) => (
             <ThreeDCard key={account.id} item={account} />
           ))}
         </div>
       </main>
-
     </div>
   );
 }
